@@ -62,7 +62,7 @@ public class MensajeroLocal {
                     System.out.print("\nIntroduzca el código del paquete: ");
                     long codPaquete = teclado.nextLong();
                     gestor.recogePaquete(codPaquete, codMensajero);
-                    System.out.println("Paquete recogido!");
+                    System.out.println("Paquete " + codPaquete + " recogido!");
                 }
 
             } // fin switch

@@ -68,8 +68,8 @@ public class ClienteLocal {
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
 
-                    gestor.enviaPaquete(codCliente, cpOrigen, cpDestino, peso);
-                    System.out.print("Paquete enviado con éxito");
+                    JSONObject envio = gestor.enviaPaquete(codCliente, cpOrigen, cpDestino, peso);
+                    System.out.print("Paquete " + envio.get("codPaquete") + " enviado con éxito");
 
                 }
                 case 3 -> { // Modificar un paquete enviado por ti y no recogido todavía
@@ -83,17 +83,17 @@ public class ClienteLocal {
                     double peso = teclado.nextDouble();
 
                     if (gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso).isEmpty())
-                        System.out.println("Paquete no existe");
-                    else System.out.println("Paquete modificado correctamente");
+                        System.out.println("Paquete " + codPaquete + " no existe");
+                    else System.out.println("Paquete " + codPaquete + " modificado correctamente");
                 }
                 case 4 -> { // Retira un paquete envíado por ti y no recogido todavía
                     System.out.print("Introduce el código de paquete a retirar: ");
                     long codPaquete = teclado.nextLong();
 
                     if (gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
-                        System.out.println("Paquete retirado");
+                        System.out.println("Paquete " + codPaquete + " retirado");
                     }
-                    else System.out.println("Paquete no existente o entregado");
+                    else System.out.println("Paquete " + codPaquete + " no existente o entregado");
                 }
 
             } // fin switch
