@@ -241,6 +241,7 @@ public class GestorPaquetes {
 				paquete.setCPDestino(CPDestino);
 				paquete.setPeso(peso);
 				paquete.setCodCliente(codCliente);
+				paquete.setFechaEnvio(Paquete.fechaHoy());
 
 				paqueteJSON = paquete.toJSON();
 				return paqueteJSON;
