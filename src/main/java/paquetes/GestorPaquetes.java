@@ -221,7 +221,7 @@ public class GestorPaquetes {
 		Vector<Paquete> vectorPaquetes = mapa.get(codCliente);
 		Paquete paquete = buscaPaquete(vectorPaquetes, codPaquete);
 
-		if (paquete != null) {
+		if (paquete != null && paquete.getFechaRecogida().isEmpty()) {
 			paquete.setCPOrigen(CPOrigen);
 			paquete.setCPDestino(CPDestino);
 			paquete.setPeso(peso);
