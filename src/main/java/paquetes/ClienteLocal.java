@@ -54,6 +54,7 @@ public class ClienteLocal {
             switch (opcion) {
                 case 0 -> { // Guardar los datos en el fichero y salir del programa
                     gestor.guardaDatos();
+                    System.out.println("Datos guardados con éxito");
                 }
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     JSONArray array = gestor.listaPaquetesCliente(codCliente);
