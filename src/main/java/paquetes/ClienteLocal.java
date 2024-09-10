@@ -63,7 +63,6 @@ public class ClienteLocal {
                         System.out.println(obj.toJSONString());
                     }
 
-                    System.out.println(array.toJSONString());
                 }
                 case 2 -> { // Hacer un envío
 
