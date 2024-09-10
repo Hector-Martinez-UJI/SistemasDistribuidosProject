@@ -287,8 +287,10 @@ public class GestorPaquetes {
 		Collection<Vector<Paquete>> vectores = mapa.values();
 		for (Vector<Paquete> vector : vectores) {
 			Paquete paquete = buscaPaquete(vector, codPaquete);
-			if (paquete != null && paquete.getCodMensajero().equals(codMensajero)){
+			if (paquete != null && paquete.getCodPaquete() == codPaquete){
 				paquete.setFechaRecogida(Paquete.fechaHoy());
+				paquete.setCodMensajero(codMensajero);
+
 				return paquete.toJSON();
 			}
 		}
