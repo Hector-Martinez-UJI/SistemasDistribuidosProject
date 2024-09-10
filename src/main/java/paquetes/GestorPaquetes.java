@@ -221,29 +221,19 @@ public class GestorPaquetes {
 	 * @return Un objeto `JSONObject` con la representación del paquete modificado, o un objeto vacío si no se encontró el paquete o ya fue recogido.
 	 */
 	public JSONObject modificaPaquete(String codCliente, long codPaquete, String CPOrigen, String CPDestino, double peso) {
-		JSONObject paqueteJSON = new JSONObject();
-
 		Vector<Paquete> vectorPaquetes = mapa.get(codCliente);
-		// Si no hay entrada en el mapa se devuelve un objeto vacío
-		if (vectorPaquetes == null) {
-			return paqueteJSON;
+		Paquete paquete = buscaPaquete(vectorPaquetes, codPaquete);
+
+		if (paquete != null) {
+			paquete.setCPOrigen(CPOrigen);
+			paquete.setCPDestino(CPDestino);
+			paquete.setPeso(peso);
+			paquete.setCodCliente(codCliente);
+			paquete.setFechaEnvio(Paquete.fechaHoy());
+			return paquete.toJSON();
 		}
 
-		// Se busca el paquete y se modifica
-		for (Paquete paquete : vectorPaquetes) {
-			if (paquete.getCodPaquete() == codPaquete) {
-				paquete.setCPOrigen(CPOrigen);
-				paquete.setCPDestino(CPDestino);
-				paquete.setPeso(peso);
-				paquete.setCodCliente(codCliente);
-				paquete.setFechaEnvio(Paquete.fechaHoy());
-
-				paqueteJSON = paquete.toJSON();
-				return paqueteJSON;
-			}
-		}
-
-		return paqueteJSON;
+		return new JSONObject();
 	}
 
 
