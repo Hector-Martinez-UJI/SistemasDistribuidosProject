@@ -61,25 +61,25 @@ public class ClienteLocal {
                 }
                 case 2 -> { // Hacer un envío
 
-                    System.out.println("Introduce el código postal de origen: ");
+                    System.out.print("Introduce el código postal de origen: ");
                     String cpOrigen = teclado.next();
-                    System.out.println("Introduce el código postal de destino: ");
+                    System.out.print("Introduce el código postal de destino: ");
                     String cpDestino = teclado.next();
-                    System.out.println("Introduce el peso: ");
+                    System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
 
                     gestor.enviaPaquete(codCliente, cpOrigen, cpDestino, peso);
-                    System.out.println("Paquete enviado con éxito");
+                    System.out.print("Paquete enviado con éxito");
 
                 }
                 case 3 -> { // Modificar un paquete enviado por ti y no recogido todavía
-                    System.out.println("Introduce el código del paquete: ");
+                    System.out.print("Introduce el código del paquete: ");
                     long codPaquete = teclado.nextLong();
-                    System.out.println("Introduce el código postal de origen: ");
+                    System.out.print("Introduce el código postal de origen: ");
                     String CPOrigen = teclado.next();
-                    System.out.println("Introduce el código postal de destino: ");
+                    System.out.print("Introduce el código postal de destino: ");
                     String CPDestino = teclado.next();
-                    System.out.println("Introduce el peso: ");
+                    System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
 
                     if (gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso).isEmpty())
@@ -87,7 +87,7 @@ public class ClienteLocal {
                     else System.out.println("Paquete modificado correctamente");
                 }
                 case 4 -> { // Retira un paquete envíado por ti y no recogido todavía
-                    System.out.println("Introduce el código de paquete a retirar: ");
+                    System.out.print("Introduce el código de paquete a retirar: ");
                     long codPaquete = teclado.nextLong();
 
                     if (gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
