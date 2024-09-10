@@ -261,9 +261,9 @@ public class GestorPaquetes {
 	 */
 	public JSONObject retiraPaquete(String codCliente, long codPaquete) {
 		Vector<Paquete> paquetes = mapa.get(codCliente);
-		if (paquetes == null) return null;
+		if (paquetes == null) return new JSONObject();
 		Paquete paqRetirar = buscaPaquete(paquetes, codPaquete);
-		if (paqRetirar == null) return null;
+		if (paqRetirar == null || !paqRetirar.getFechaRecogida().isEmpty()) return new JSONObject();
 		paquetes.remove(paqRetirar);
 
 		return paqRetirar.toJSON();
