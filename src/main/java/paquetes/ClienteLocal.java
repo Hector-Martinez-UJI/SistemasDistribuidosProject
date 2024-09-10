@@ -73,16 +73,27 @@ public class ClienteLocal {
 
                 }
                 case 3 -> { // Modificar un paquete enviado por ti y no recogido todavía
+                    System.out.println("Introduce el código del paquete: ");
+                    long codPaquete = teclado.nextLong();
+                    System.out.println("Introduce el código postal de origen: ");
+                    String CPOrigen = teclado.next();
+                    System.out.println("Introduce el código postal de destino: ");
+                    String CPDestino = teclado.next();
+                    System.out.println("Introduce el peso: ");
+                    double peso = teclado.nextDouble();
 
-                    // POR IMPLEMENTAR
-
-
-
+                    if (gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso).isEmpty())
+                        System.out.println("Paquete no existe");
+                    else System.out.println("Paquete modificado correctamente");
                 }
                 case 4 -> { // Retira un paquete envíado por ti y no recogido todavía
+                    System.out.println("Introduce el código de paquete a retirar: ");
+                    long codPaquete = teclado.nextLong();
 
-                    // POR IMPLEMENTAR
-
+                    if (gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
+                        System.out.println("Paquete retirado");
+                    }
+                    else System.out.println("Paquete no existente o entregado");
                 }
 
             } // fin switch
