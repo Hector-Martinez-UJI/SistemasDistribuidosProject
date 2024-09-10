@@ -1,6 +1,5 @@
 package paquetes;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -58,10 +57,9 @@ public class ClienteLocal {
                 }
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     JSONArray array = gestor.listaPaquetesCliente(codCliente);
-                    Iterator i_array = array.iterator();
 
-                    while (i_array.hasNext()) {
-                        JSONObject obj = (JSONObject) i_array.next();
+                    for (Object o : array) {
+                        JSONObject obj = (JSONObject) o;
                         System.out.println(obj.toJSONString());
                     }
 
