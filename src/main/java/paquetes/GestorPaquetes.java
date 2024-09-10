@@ -289,11 +289,10 @@ public class GestorPaquetes {
 	public JSONObject recogePaquete(long codPaquete, String codMensajero) {
 		Collection<Vector<Paquete>> vectores = mapa.values();
 		for (Vector<Paquete> vector : vectores) {
-			for (Paquete paquete : vector) {
-				if (paquete.getCodPaquete() == codPaquete && paquete.getCodMensajero().equals(codMensajero)){
-					paquete.setFechaRecogida(Paquete.fechaHoy());
-					return paquete.toJSON();
-				}
+			Paquete paquete = buscaPaquete(vector, codPaquete);
+			if (paquete != null && paquete.getCodMensajero().equals(codMensajero)){
+				paquete.setFechaRecogida(Paquete.fechaHoy());
+				return paquete.toJSON();
 			}
 		}
 
