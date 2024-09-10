@@ -100,7 +100,7 @@ public class ClienteLocal {
                     System.out.print("Introduce el código de paquete a retirar: ");
                     long codPaquete = teclado.nextLong();
 
-                    if (gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
+                    if (!gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
                         System.out.println("Paquete " + codPaquete + " retirado");
                     }
                     else System.out.println("Paquete " + codPaquete + " no existente o entregado");
