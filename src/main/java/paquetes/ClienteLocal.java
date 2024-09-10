@@ -58,9 +58,13 @@ public class ClienteLocal {
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     JSONArray array = gestor.listaPaquetesCliente(codCliente);
 
-                    for (Object o : array) {
-                        JSONObject obj = (JSONObject) o;
-                        System.out.println(obj.toJSONString());
+                    if (array.isEmpty()) {
+                        System.out.println("No se han enviado paquetes");
+                    } else {
+                        for (Object o : array) {
+                            JSONObject obj = (JSONObject) o;
+                            System.out.println(obj.toJSONString());
+                        }
                     }
 
                 }
