@@ -186,12 +186,7 @@ public class GestorPaquetes {
 	 */
 	public JSONObject enviaPaquete(String codCliente, String CPOrigen, String CPDestino, double peso) {
 		Paquete paquete = new Paquete(codCliente, CPOrigen, CPDestino, peso);
-
-		/**
-		 * Si devuelve null se crea un nuevo vector
-		 */
-		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, k -> new Vector<>());
-        paquetes.add(paquete);
+		almacenaPaquete(paquete);
 
 		return paquete.toJSON();
 	}
