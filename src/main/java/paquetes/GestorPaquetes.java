@@ -282,7 +282,7 @@ public class GestorPaquetes {
 		Collection<Vector<Paquete>> vectores = mapa.values();
 		for (Vector<Paquete> vector : vectores) {
 			for (Paquete paquete : vector) {
-				if (paquete.getCPDestino().equals(CPDestino) && paquete.getFechaRecogida().equals("")) {
+				if (paquete.getCPDestino().equals(CPDestino) && paquete.getFechaRecogida().isEmpty()) {
 					JSONObject paqueteJSON = paquete.toJSON();
 					array.add(paqueteJSON);
 				}
