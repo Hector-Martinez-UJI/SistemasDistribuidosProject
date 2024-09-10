@@ -147,13 +147,10 @@ public class GestorPaquetes {
 	 */
 	private void rellenaDiccionario(JSONArray array) {
 		// Iteramos sobre el array
-		Iterator i_array = array.iterator();
-		JSONObject obj;
 
-		while (i_array.hasNext()) {
-			obj = (JSONObject) i_array.next();
+		for (Object o : array) {
+			JSONObject obj = (JSONObject) o;
 			Paquete paquete = new Paquete(obj);
-			// Almacenamos el paquete en el mapa
 			almacenaPaquete(paquete);
 		}
 	}
