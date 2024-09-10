@@ -104,7 +104,7 @@ public class GestorPaquetes {
 	private void almacenaPaquete(Paquete paquete) {
 		String codCliente = paquete.getCodCliente();
 		// Buscamos vector de paquetes y lo creamos si no existe
-		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, k -> new Vector<>());
+		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, _ -> new Vector<>());
 		// Lo añadimos al vector si no lo está
 		if (!paquetes.contains(paquete)) paquetes.add(paquete);
 	}
@@ -190,7 +190,7 @@ public class GestorPaquetes {
 		/**
 		 * Si devuelve null se crea un nuevo vector
 		 */
-		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, k -> new Vector<>());
+		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, _ -> new Vector<>());
         paquetes.add(paquete);
 
 		return paquete.toJSON();
