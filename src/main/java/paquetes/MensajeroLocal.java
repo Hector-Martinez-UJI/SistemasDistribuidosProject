@@ -59,9 +59,14 @@ public class MensajeroLocal {
                     System.out.print("\nIntroduzca el CP: ");
                     String cp = teclado.next();
                     JSONArray array = gestor.listaPaquetesCP(cp);
-                    for (Object o : array){
-                        JSONObject obj = (JSONObject) o;
-                        System.out.println(obj.toJSONString());
+
+                    if (array.isEmpty()) {
+                        System.out.println("No se ha enviado ningún paquete al CP " + cp);
+                    } else {
+                        for (Object o : array){
+                            JSONObject obj = (JSONObject) o;
+                            System.out.println(obj.toJSONString());
+                        }
                     }
                 }
                 case 2 -> { // Recoger un paquete con un código dado
