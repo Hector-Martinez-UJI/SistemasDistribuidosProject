@@ -72,8 +72,12 @@ public class MensajeroLocal {
                 case 2 -> { // Recoger un paquete con un código dado
                     System.out.print("\nIntroduzca el código del paquete: ");
                     long codPaquete = teclado.nextLong();
-                    gestor.recogePaquete(codPaquete, codMensajero);
-                    System.out.println("Paquete " + codPaquete + " recogido!");
+                    JSONObject paquete = gestor.recogePaquete(codPaquete, codMensajero);
+                    if (paquete.isEmpty()) {
+                        System.out.println("Paquete no existente.");
+                    } else {
+                        System.out.println("Paquete " + codPaquete + " recogido!");
+                    }
                 }
 
             } // fin switch
