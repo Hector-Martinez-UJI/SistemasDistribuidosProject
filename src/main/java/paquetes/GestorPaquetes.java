@@ -183,8 +183,9 @@ public class GestorPaquetes {
 	 */
 	public JSONObject enviaPaquete(String codCliente, String CPOrigen, String CPDestino, double peso) {
 		Paquete paquete = new Paquete(codCliente, CPOrigen, CPDestino, peso);
+		// Almacena el nuevo paquete en el mapa
 		almacenaPaquete(paquete);
-
+		// Devuelve el objeto JSON
 		return paquete.toJSON();
 	}
 
@@ -202,6 +203,7 @@ public class GestorPaquetes {
 		for (Paquete paquete : vector){
 			if (paquete.getCodPaquete() == codPaquete) return paquete;
 		}
+		// Null en caso de que el paquete no exista
 		return null;
 	}
 
@@ -218,9 +220,11 @@ public class GestorPaquetes {
 	 * @return Un objeto `JSONObject` con la representación del paquete modificado, o un objeto vacío si no se encontró el paquete o ya fue recogido.
 	 */
 	public JSONObject modificaPaquete(String codCliente, long codPaquete, String CPOrigen, String CPDestino, double peso) {
+		// Obtenemos todos los paquetes de un cliente
 		Vector<Paquete> vectorPaquetes = mapa.get(codCliente);
 		Paquete paquete = buscaPaquete(vectorPaquetes, codPaquete);
 
+		// Si el paquete existe y no se ha recogido
 		if (paquete != null && paquete.getFechaRecogida().isEmpty()) {
 			paquete.setCPOrigen(CPOrigen);
 			paquete.setCPDestino(CPDestino);
@@ -229,7 +233,7 @@ public class GestorPaquetes {
 			paquete.setFechaEnvio(Paquete.fechaHoy());
 			return paquete.toJSON();
 		}
-
+		// Si no se devuelve un JSON vacío
 		return new JSONObject();
 	}
 
@@ -243,12 +247,15 @@ public class GestorPaquetes {
 	 * @return Un objeto `JSONObject` con la representación del paquete retirado, o un objeto vacío si no se encontró el paquete o ya fue recogido.
 	 */
 	public JSONObject retiraPaquete(String codCliente, long codPaquete) {
+		// Se obtienen los paquetes de un cliente
 		Vector<Paquete> paquetes = mapa.get(codCliente);
+		// Si no tiene paquetes se devuelve un JSON vacío
 		if (paquetes == null) return new JSONObject();
 		Paquete paqRetirar = buscaPaquete(paquetes, codPaquete);
+		// SI el paquete no existe o está entregado se devuelve un JSON vacío
 		if (paqRetirar == null || !paqRetirar.getFechaRecogida().isEmpty()) return new JSONObject();
 		paquetes.remove(paqRetirar);
-
+		// Si no se retira y se devuelve el JSON
 		return paqRetirar.toJSON();
 	}
 
@@ -263,8 +270,10 @@ public class GestorPaquetes {
 		JSONArray array = new JSONArray();
 
 		Collection<Vector<Paquete>> vectores = mapa.values();
+		// Se recorren todos los paquetes y se filtran por los paquetes con CP especificado
 		for (Vector<Paquete> vector : vectores) {
 			for (Paquete paquete : vector) {
+				// Filtrado
 				if (paquete.getCPDestino().equals(CPDestino) && paquete.getFechaRecogida().isEmpty()) {
 					JSONObject paqueteJSON = paquete.toJSON();
 					array.add(paqueteJSON);
@@ -285,8 +294,11 @@ public class GestorPaquetes {
 	 */
 	public JSONObject recogePaquete(long codPaquete, String codMensajero) {
 		Collection<Vector<Paquete>> vectores = mapa.values();
+
+		// Se recorren todos los paquetes y se filtra por codPaquete y codMensajero
 		for (Vector<Paquete> vector : vectores) {
 			Paquete paquete = buscaPaquete(vector, codPaquete);
+			// Filtrado
 			if (paquete != null && paquete.getCodPaquete() == codPaquete){
 				paquete.setFechaRecogida(Paquete.fechaHoy());
 				paquete.setCodMensajero(codMensajero);
@@ -294,7 +306,7 @@ public class GestorPaquetes {
 				return paquete.toJSON();
 			}
 		}
-
+		// Se devuelve representación JSON
 		return new JSONObject();
 	}
 
