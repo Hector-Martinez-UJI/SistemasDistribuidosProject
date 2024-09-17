@@ -57,11 +57,13 @@ public class ClienteLocal {
                     System.out.println("Datos guardados con éxito");
                 }
                 case 1 -> { // Listar los paquetes enviados por el cliente
+                    // Se solicitan los paquetes del cliente
                     JSONArray array = gestor.listaPaquetesCliente(codCliente);
 
                     if (array.isEmpty()) {
                         System.out.println("No se han enviado paquetes");
                     } else {
+                        // En caso de que el array no este vacío se listan
                         for (Object o : array) {
                             JSONObject obj = (JSONObject) o;
                             System.out.println(obj.toJSONString());
@@ -70,20 +72,21 @@ public class ClienteLocal {
 
                 }
                 case 2 -> { // Hacer un envío
-
+                    // Se piden datos
                     System.out.print("Introduce el código postal de origen: ");
                     String cpOrigen = teclado.next();
                     System.out.print("Introduce el código postal de destino: ");
                     String cpDestino = teclado.next();
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
-
+                    // Se envía el paquete
                     JSONObject envio = gestor.enviaPaquete(codCliente, cpOrigen, cpDestino, peso);
                     System.out.print("Paquete " + envio.get("codPaquete") + " enviado con éxito");
                     System.out.println(envio.toJSONString());
 
                 }
                 case 3 -> { // Modificar un paquete enviado por ti y no recogido todavía
+                    // Se piden los datos
                     System.out.print("Introduce el código del paquete: ");
                     long codPaquete = teclado.nextLong();
                     System.out.print("Introduce el código postal de origen: ");
@@ -92,18 +95,22 @@ public class ClienteLocal {
                     String CPDestino = teclado.next();
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
+                    // Se modifica el paquete
                     JSONObject paquete = gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso);
                     if (paquete.isEmpty())
                         System.out.println("Paquete " + codPaquete + " no existe");
                     else {
+                        // En caso de que la modificación sea exitosa, se imprime
                         System.out.println("Paquete " + codPaquete + " modificado correctamente");
                         System.out.println(paquete.toJSONString());
                     }
                 }
                 case 4 -> { // Retira un paquete envíado por ti y no recogido todavía
+                    // Introduce datos
                     System.out.print("Introduce el código de paquete a retirar: ");
                     long codPaquete = teclado.nextLong();
 
+                    // Se retira el paquete
                     if (!gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
                         System.out.println("Paquete " + codPaquete + " retirado");
                     }

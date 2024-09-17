@@ -56,6 +56,7 @@ public class MensajeroLocal {
                     System.out.println("Datos guardados con éxito");
                 }
                 case 1 -> { // Listar los paquetes enviados a un CP
+                    // Se pide CP
                     System.out.print("\nIntroduzca el CP: ");
                     String cp = teclado.next();
                     JSONArray array = gestor.listaPaquetesCP(cp);
@@ -63,6 +64,7 @@ public class MensajeroLocal {
                     if (array.isEmpty()) {
                         System.out.println("No se ha enviado ningún paquete al CP " + cp);
                     } else {
+                        // Si el array no está vacío se muestran los paquetes
                         for (Object o : array){
                             JSONObject obj = (JSONObject) o;
                             System.out.println(obj.toJSONString());
@@ -70,12 +72,15 @@ public class MensajeroLocal {
                     }
                 }
                 case 2 -> { // Recoger un paquete con un código dado
+                    // Se piden los datos
                     System.out.print("\nIntroduzca el código del paquete: ");
                     long codPaquete = teclado.nextLong();
+                    // Se recoge el paquete
                     JSONObject paquete = gestor.recogePaquete(codPaquete, codMensajero);
                     if (paquete.isEmpty()) {
                         System.out.println("Paquete no existente.");
                     } else {
+                        // Si se ha recogido con éxito se muestra el paquete
                         System.out.println("Paquete " + codPaquete + " recogido!");
                         System.out.println(paquete.toJSONString());
                     }
