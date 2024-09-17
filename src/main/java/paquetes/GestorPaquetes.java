@@ -295,7 +295,7 @@ public class GestorPaquetes {
 			}
 		}
 
-		return null;
+		return new JSONObject();
 	}
 
 }

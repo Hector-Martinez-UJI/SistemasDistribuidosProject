@@ -77,6 +77,7 @@ public class MensajeroLocal {
                         System.out.println("Paquete no existente.");
                     } else {
                         System.out.println("Paquete " + codPaquete + " recogido!");
+                        System.out.println(paquete.toJSONString());
                     }
                 }
 
