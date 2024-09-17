@@ -205,6 +205,10 @@ public class GestorPaquetes {
 		return null;
 	}
 
+	public boolean existePaquete(String codCli, long codPaquete){
+		return buscaPaquete(mapa.get(codCli), codPaquete) != null;
+	}
+
 
 	/**
 	 * Modifica un paquete específico de un cliente dado, actualizando sus datos si no ha sido recogido.
