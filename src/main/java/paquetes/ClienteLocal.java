@@ -38,7 +38,7 @@ public class ClienteLocal {
      *
      * @param args	no se usan argumentos de entrada al programa principal
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         Scanner teclado = new Scanner(System.in);
 
@@ -85,10 +85,6 @@ public class ClienteLocal {
                 case 3 -> { // Modificar un paquete enviado por ti y no recogido todavía
                     System.out.print("Introduce el código del paquete: ");
                     long codPaquete = teclado.nextLong();
-                    if (!gestor.existePaquete(codCliente,codPaquete)){
-                        System.out.println("No existe el paquete");
-                        break;
-                    }
                     System.out.print("Introduce el código postal de origen: ");
                     String CPOrigen = teclado.next();
                     System.out.print("Introduce el código postal de destino: ");
@@ -96,8 +92,9 @@ public class ClienteLocal {
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
 
-                    gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso);
-                    System.out.println("Paquete " + codPaquete + " modificado correctamente");
+                    if (gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso).isEmpty())
+                        System.out.println("Paquete " + codPaquete + " no existe");
+                    else System.out.println("Paquete " + codPaquete + " modificado correctamente");
                 }
                 case 4 -> { // Retira un paquete envíado por ti y no recogido todavía
                     System.out.print("Introduce el código de paquete a retirar: ");
@@ -106,7 +103,7 @@ public class ClienteLocal {
                     if (!gestor.retiraPaquete(codCliente, codPaquete).isEmpty()){
                         System.out.println("Paquete " + codPaquete + " retirado");
                     }
-                    else System.out.println("Paquete " + codPaquete + "  no existente o entregado");
+                    else System.out.println("Paquete " + codPaquete + " no existente o entregado");
                 }
 
             } // fin switch
