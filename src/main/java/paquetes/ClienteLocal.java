@@ -2,6 +2,7 @@ package paquetes;
 
 import java.util.Scanner;
 
+import gestor.GestorPaquetes;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
