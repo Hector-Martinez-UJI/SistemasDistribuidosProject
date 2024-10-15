@@ -8,8 +8,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 /**
  * Esta clase es un módulo que proporciona la lógica de aplicación

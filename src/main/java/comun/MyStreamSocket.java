@@ -3,7 +3,6 @@ package comun;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
 
 /**
  * A wrapper class of Socket which contains 
