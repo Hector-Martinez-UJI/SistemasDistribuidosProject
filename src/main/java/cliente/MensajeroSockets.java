@@ -60,9 +60,8 @@ public class MensajeroSockets {
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 0 -> { // Cerrar sesion
-                    gestor.cierraSesion();
-                }
+                case 0 -> // Cerrar sesion
+                        gestor.cierraSesion();
                 case 1 -> { // Listar los paquetes enviados a un CP
                     // Se pide CP
                     System.out.print("\nIntroduzca el CP: ");

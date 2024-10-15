@@ -59,9 +59,7 @@ public class ClienteSockets {
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 0 -> {
-                    gestor.cierraSesion();
-                }
+                case 0 -> gestor.cierraSesion();
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     // Se solicitan los paquetes del cliente
                     JSONArray array = gestor.listaPaquetesCliente(codCliente);
