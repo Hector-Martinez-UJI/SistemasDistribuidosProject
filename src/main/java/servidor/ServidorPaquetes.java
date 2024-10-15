@@ -23,14 +23,12 @@ import java.net.ServerSocket;
 
 public class ServidorPaquetes {
 
-    static private GestorPaquetes gestor = null;
-
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		int serverPort = 12345;    // puerto por defecto
 		ServerSocket myConnectionSocket = null;
-		gestor = new GestorPaquetes(); // Crea el gestor que, a su vez, crea/sobreescribe el fichero de paquetes
+        GestorPaquetes gestor = new GestorPaquetes(); // Crea el gestor que, a su vez, crea/sobreescribe el fichero de paquetes
 
-		if (args.length == 1 )
+        if (args.length == 1 )
 			serverPort = Integer.parseInt(args[0]);       
 		try { 
 			// Instancia un socket stream para aceptar conexiones
