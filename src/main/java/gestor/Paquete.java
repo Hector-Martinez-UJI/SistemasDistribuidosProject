@@ -1,4 +1,4 @@
-package paquetes;
+package gestor;
 
 import java.io.Serial;
 import java.io.Serializable;

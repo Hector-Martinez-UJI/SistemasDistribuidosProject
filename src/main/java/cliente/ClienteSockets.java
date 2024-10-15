@@ -1,13 +1,12 @@
-package paquetes;
+package cliente;
 
 import java.util.Scanner;
 
-import gestor.GestorPaquetes;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
-public class ClienteLocal {
+public class ClienteSockets {
 
     /**
      * Muestra el menu de opciones y lee repetidamente de teclado hasta obtener una opción válida
@@ -21,13 +20,13 @@ public class ClienteLocal {
         System.out.println("=====================================================");
         System.out.println("============            MENU        =================");
         System.out.println("=====================================================");
-        System.out.println("0. Salir");
+        System.out.println("0. Cerrar conexión con el servidor");
         System.out.println("1. Listar los paquetes enviados");
         System.out.println("2. Enviar un paquete");
         System.out.println("3. Modificar un paquete");
         System.out.println("4. Retirar un paquete");
         do {
-            System.out.print("\nElige una opcion (0..4): ");
+            System.out.print("\nElige una opcion (1..4): ");
             opcion = teclado.nextInt();
         } while ( (opcion<0) || (opcion>4) );
         teclado.nextLine(); // Elimina retorno de carro del buffer de entrada
@@ -44,7 +43,7 @@ public class ClienteLocal {
         Scanner teclado = new Scanner(System.in);
 
         // Crea un gestor de valoraciones
-        GestorPaquetes gestor = new GestorPaquetes();
+        AuxiliarClientePaquetes gestor = new AuxiliarClientePaquetes();
 
         System.out.print("Introduce tu código de cliente: ");
         String codCliente = teclado.nextLine();
@@ -53,9 +52,8 @@ public class ClienteLocal {
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 0 -> { // Guardar los datos en el fichero y salir del programa
-                    gestor.guardaDatos();
-                    System.out.println("Datos guardados con éxito");
+                case 0 -> {
+                    gestor.cerrarSesion();
                 }
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     // Se solicitan los paquetes del cliente

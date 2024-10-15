@@ -1,4 +1,4 @@
-package paquetes;
+package cliente;
 
 import gestor.GestorPaquetes;
 import org.json.simple.JSONArray;
@@ -6,15 +6,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Scanner;
 
-
-public class MensajeroLocal {
-
-    /**
-     * Muestra el menu de opciones y lee repetidamente de teclado hasta obtener una opción válida
-     *
-     * @param teclado	stream para leer la opción elegida de teclado
-     * @return			opción elegida
-     */
+public class MensajeroSockets {
     public static int menu(Scanner teclado) {
         int opcion;
         System.out.println("\n\n");
@@ -42,7 +34,7 @@ public class MensajeroLocal {
         Scanner teclado = new Scanner(System.in);
 
         // Crea un gestor de valoraciones
-        GestorPaquetes gestor = new GestorPaquetes();
+        AuxiliarClientePaquetes gestor = new AuxiliarClientePaquetes();
 
         System.out.print("Introduce tu código de mensajero: ");
         String codMensajero = teclado.nextLine();
@@ -51,10 +43,8 @@ public class MensajeroLocal {
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 0 -> { // Guardar los datos en el fichero y salir del programa
-                    gestor.guardaDatos();
-
-                    System.out.println("Datos guardados con éxito");
+                case 0 -> { // Cerrar sesion
+                    gestor.cerrarSesion();
                 }
                 case 1 -> { // Listar los paquetes enviados a un CP
                     // Se pide CP
@@ -92,5 +82,4 @@ public class MensajeroLocal {
         } while (opcion != 0);
 
     } // fin de main
-
-} // fin class
+}

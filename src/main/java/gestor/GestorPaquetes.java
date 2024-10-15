@@ -1,4 +1,4 @@
-package paquetes;
+package gestor;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -101,7 +101,7 @@ public class GestorPaquetes {
 	 * Almacena un paquete en el diccionario
 	 * @param paquete	paquete a almacenar
 	 */
-	private void almacenaPaquete(Paquete paquete) {
+	private synchronized void almacenaPaquete(Paquete paquete) {
 		String codCliente = paquete.getCodCliente();
 		// Buscamos vector de paquetes y lo creamos si no existe
 		Vector<Paquete> paquetes = mapa.computeIfAbsent(codCliente, k -> new Vector<>());
@@ -163,9 +163,9 @@ public class GestorPaquetes {
 	 * @param codCliente El código del cliente cuyos paquetes se desean listar.
 	 * @return Un `JSONArray` que contiene la representación JSON de cada paquete del cliente.
 	 */
-	public JSONArray listaPaquetesCliente(String codCliente) {
+	public synchronized JSONArray listaPaquetesCliente(String codCliente) {
 		Vector<Paquete> paquetes = mapa.get(codCliente);
-		if (paquetes == null) return null;
+		if (paquetes == null) return new JSONArray();
 		JSONArray array = new JSONArray();
 		for(Paquete paquete : paquetes) array.add(paquete.toJSON());
 		return array;
@@ -181,7 +181,7 @@ public class GestorPaquetes {
 	 * @param peso El peso del paquete en kilogramos.
 	 * @return Un objeto `JSONObject` que contiene el código del paquete bajo la clave "codPaquete".
 	 */
-	public JSONObject enviaPaquete(String codCliente, String CPOrigen, String CPDestino, double peso) {
+	public synchronized JSONObject enviaPaquete(String codCliente, String CPOrigen, String CPDestino, double peso) {
 		Paquete paquete = new Paquete(codCliente, CPOrigen, CPDestino, peso);
 		// Almacena el nuevo paquete en el mapa
 		almacenaPaquete(paquete);
@@ -219,7 +219,7 @@ public class GestorPaquetes {
 	 * @param peso El nuevo peso del paquete. Si es 0, no se modifica.
 	 * @return Un objeto `JSONObject` con la representación del paquete modificado, o un objeto vacío si no se encontró el paquete o ya fue recogido.
 	 */
-	public JSONObject modificaPaquete(String codCliente, long codPaquete, String CPOrigen, String CPDestino, double peso) {
+	public synchronized JSONObject modificaPaquete(String codCliente, long codPaquete, String CPOrigen, String CPDestino, double peso) {
 		// Obtenemos todos los paquetes de un cliente
 		Vector<Paquete> vectorPaquetes = mapa.get(codCliente);
 		Paquete paquete = buscaPaquete(vectorPaquetes, codPaquete);
@@ -246,7 +246,7 @@ public class GestorPaquetes {
 	 * @param codPaquete El código del paquete a retirar.
 	 * @return Un objeto `JSONObject` con la representación del paquete retirado, o un objeto vacío si no se encontró el paquete o ya fue recogido.
 	 */
-	public JSONObject retiraPaquete(String codCliente, long codPaquete) {
+	public synchronized JSONObject retiraPaquete(String codCliente, long codPaquete) {
 		// Se obtienen los paquetes de un cliente
 		Vector<Paquete> paquetes = mapa.get(codCliente);
 		// Si no tiene paquetes se devuelve un JSON vacío
@@ -266,7 +266,7 @@ public class GestorPaquetes {
 	 *
 	 * @return JSONArray con la lista de paquetes. Vacío si no hay paquetes destinados a ese código postal
 	 */
-	public JSONArray listaPaquetesCP(String CPDestino) {
+	public synchronized JSONArray listaPaquetesCP(String CPDestino) {
 		JSONArray array = new JSONArray();
 
 		Collection<Vector<Paquete>> vectores = mapa.values();
@@ -292,7 +292,7 @@ public class GestorPaquetes {
 	 * @param codMensajero el código único del mensajero que recoge el paquete
 	 * @return un objeto JSON con la información del paquete recogido
 	 */
-	public JSONObject recogePaquete(long codPaquete, String codMensajero) {
+	public synchronized JSONObject recogePaquete(long codPaquete, String codMensajero) {
 		Collection<Vector<Paquete>> vectores = mapa.values();
 
 		// Se recorren todos los paquetes y se filtra por codPaquete y codMensajero
