@@ -38,7 +38,7 @@ public class MyStreamSocket  {
       output = new PrintWriter(new OutputStreamWriter(outStream));
    }
 
-   public void sendMessage(String message) throws IOException {	
+   public void sendMessage(String message) {
       output.print(message + "\n");   
       //The ensuing flush method call is necessary for the data to
       // be written to the socket data stream before the
