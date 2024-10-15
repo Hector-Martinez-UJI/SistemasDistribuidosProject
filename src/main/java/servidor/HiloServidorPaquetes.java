@@ -55,6 +55,7 @@ class HiloServidorPaquetes implements Runnable {
 				switch (operacion) {
 					case "0": {
 						done = true;
+						myDataSocket.close(); // Cerramos la conexión
 						break;
 					}
 					case "1": { // Devuelve una lista de paquetes enviados por un cliente dado
@@ -110,7 +111,6 @@ class HiloServidorPaquetes implements Runnable {
 					}
 				} // fin switch
 			} // fin while
-			myDataSocket.close(); // Cerramos la conexión
 		} // fin try
 		catch (SocketException ex) {
 			System.out.println("Capturada SocketException");
