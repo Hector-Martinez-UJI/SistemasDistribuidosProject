@@ -33,7 +33,7 @@ public class GestorPaquetes {
      * Crea o Lee un fichero con datos de prueba
      */
     public GestorPaquetes() {
-        this.mapa =  new HashMap<String, Vector<gestor.Paquete>>();
+        this.mapa = new HashMap<>();
         File file = new File("paquetes.json");
         try {
             if (!file.exists() ) {
