@@ -1,12 +1,23 @@
 package cliente;
 
-import gestor.GestorPaquetes;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MensajeroSockets {
+
+
+    // Sustituye esta clase por tu versión de la clase MensajeroLocal de la práctica 1
+
+    // Modifícala para que instancie un objeto de la clase AuxiliarClientePaquetes
+
+    // Modifica todas las llamadas al objeto de la clase GestorPaquetes
+    // por llamadas al objeto de la clase AuxiliarClientePaquetes.
+    // Los métodos a llamar tendrán la misma signatura.
+
     public static int menu(Scanner teclado) {
         int opcion;
         System.out.println("\n\n");
@@ -34,7 +45,13 @@ public class MensajeroSockets {
         Scanner teclado = new Scanner(System.in);
 
         // Crea un gestor de valoraciones
-        AuxiliarClientePaquetes gestor = new AuxiliarClientePaquetes();
+        AuxiliarClientePaquetes gestor = null;
+        try {
+            gestor = new AuxiliarClientePaquetes("localhost", "12345");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
         System.out.print("Introduce tu código de mensajero: ");
         String codMensajero = teclado.nextLine();
@@ -44,7 +61,7 @@ public class MensajeroSockets {
             opcion = menu(teclado);
             switch (opcion) {
                 case 0 -> { // Cerrar sesion
-                    gestor.cerrarSesion();
+                    gestor.cierraSesion();
                 }
                 case 1 -> { // Listar los paquetes enviados a un CP
                     // Se pide CP
@@ -66,8 +83,10 @@ public class MensajeroSockets {
                     // Se piden los datos
                     System.out.print("\nIntroduzca el código del paquete: ");
                     long codPaquete = teclado.nextLong();
+
                     // Se recoge el paquete
                     JSONObject paquete = gestor.recogePaquete(codPaquete, codMensajero);
+
                     if (paquete.isEmpty()) {
                         System.out.println("Paquete no existente.");
                     } else {
@@ -82,4 +101,5 @@ public class MensajeroSockets {
         } while (opcion != 0);
 
     } // fin de main
-}
+
+} // fin class

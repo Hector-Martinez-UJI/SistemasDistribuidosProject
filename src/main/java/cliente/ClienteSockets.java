@@ -1,10 +1,11 @@
 package cliente;
 
-import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
+import java.util.Scanner;
 
 public class ClienteSockets {
 
@@ -43,7 +44,13 @@ public class ClienteSockets {
         Scanner teclado = new Scanner(System.in);
 
         // Crea un gestor de valoraciones
-        AuxiliarClientePaquetes gestor = new AuxiliarClientePaquetes();
+        AuxiliarClientePaquetes gestor = null;
+        try {
+            gestor = new AuxiliarClientePaquetes("localhost", "12345");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
         System.out.print("Introduce tu código de cliente: ");
         String codCliente = teclado.nextLine();
@@ -53,7 +60,7 @@ public class ClienteSockets {
             opcion = menu(teclado);
             switch (opcion) {
                 case 0 -> {
-                    gestor.cerrarSesion();
+                    gestor.cierraSesion();
                 }
                 case 1 -> { // Listar los paquetes enviados por el cliente
                     // Se solicitan los paquetes del cliente
@@ -74,13 +81,16 @@ public class ClienteSockets {
                     // Se piden datos
                     System.out.print("Introduce el código postal de origen: ");
                     String cpOrigen = teclado.next();
+
                     System.out.print("Introduce el código postal de destino: ");
                     String cpDestino = teclado.next();
+
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
+
                     // Se envía el paquete
                     JSONObject envio = gestor.enviaPaquete(codCliente, cpOrigen, cpDestino, peso);
-                    System.out.print("Paquete " + envio.get("codPaquete") + " enviado con éxito");
+                    System.out.println("Paquete " + envio.get("codPaquete") + " enviado con éxito ");
                     System.out.println(envio.toJSONString());
 
                 }
@@ -88,16 +98,21 @@ public class ClienteSockets {
                     // Se piden los datos
                     System.out.print("Introduce el código del paquete: ");
                     long codPaquete = teclado.nextLong();
+
                     System.out.print("Introduce el código postal de origen: ");
                     String CPOrigen = teclado.next();
+
                     System.out.print("Introduce el código postal de destino: ");
                     String CPDestino = teclado.next();
+
                     System.out.print("Introduce el peso: ");
                     double peso = teclado.nextDouble();
+
                     // Se modifica el paquete
                     JSONObject paquete = gestor.modificaPaquete(codCliente, codPaquete, CPOrigen, CPDestino, peso);
+
                     if (paquete.isEmpty())
-                        System.out.println("Paquete " + codPaquete + " no existe");
+                        System.out.println("Paquete " + codPaquete + " no existente o entregado");
                     else {
                         // En caso de que la modificación sea exitosa, se imprime
                         System.out.println("Paquete " + codPaquete + " modificado correctamente");
@@ -121,5 +136,6 @@ public class ClienteSockets {
         } while (opcion != 0);
 
     } // fin de main
+
 
 } // fin class
