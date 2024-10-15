@@ -50,8 +50,10 @@ public class ServidorPaquetes {
 		} // fin catch
 		finally {
 			try {
-				myConnectionSocket.close();
-			} catch (IOException e) {
+                if (myConnectionSocket != null) {
+                    myConnectionSocket.close();
+                }
+            } catch (IOException e) {
 				e.printStackTrace();
 			}
 			gestor.guardaDatos();
