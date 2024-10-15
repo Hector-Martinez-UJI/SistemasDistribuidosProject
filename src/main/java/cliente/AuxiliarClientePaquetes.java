@@ -28,7 +28,7 @@ public class AuxiliarClientePaquetes {
 	 * @param	portNum		número de puerto asociado al servicio en el servidor
 	 */
 	AuxiliarClientePaquetes(String hostName, String portNum)
-			throws SocketException, UnknownHostException, IOException {
+			throws IOException {
 		// Instantiates a stream-mode socket and wait for a connection.
 		this.mySocket = new MyStreamSocket(InetAddress.getByName(hostName), Integer.parseInt(portNum));
 		/**/  System.out.println("Hecha peticion de conexion");

@@ -16,7 +16,7 @@ public class MyStreamSocket  {
    private PrintWriter output;
 
    public MyStreamSocket(InetAddress acceptorHost, int acceptorPort)
-		                throws SocketException, IOException{
+		                throws IOException{
       socket = new Socket(acceptorHost, acceptorPort );
       setStreams();
 
