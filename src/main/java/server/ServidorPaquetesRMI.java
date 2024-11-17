@@ -6,10 +6,7 @@ import java.net.MalformedURLException;
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.*;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServidorPaquetesRMI {
     public static void main(String[] args) {
@@ -18,7 +15,7 @@ public class ServidorPaquetesRMI {
             startRegistry(RMIPortNum);
 
             // Crear diccionarios de registrados
-            Map<String, IntCallbackCliente> clientesRegistrados = new HashMap<>();
+            ConcurrentHashMap<String, IntCallbackCliente> clientesRegistrados = new ConcurrentHashMap<>();
 
 
             GestorPaquetes gestor = new GestorPaquetes();

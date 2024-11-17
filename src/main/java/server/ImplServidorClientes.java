@@ -7,14 +7,14 @@ import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ImplServidorClientes extends UnicastRemoteObject implements IntServidorClientes {
 
     private final GestorPaquetes gestor;
-    private final Map<String, IntCallbackCliente> clientesRegistrados;
+    private final ConcurrentHashMap<String, IntCallbackCliente> clientesRegistrados;
 
-    public ImplServidorClientes(GestorPaquetes gestor, Map<String, IntCallbackCliente> clientesRegistrados) throws RemoteException {
+    public ImplServidorClientes(GestorPaquetes gestor, ConcurrentHashMap<String, IntCallbackCliente> clientesRegistrados) throws RemoteException {
         super();
         this.gestor = gestor;
         this.clientesRegistrados = clientesRegistrados;
@@ -43,15 +43,11 @@ public class ImplServidorClientes extends UnicastRemoteObject implements IntServ
 
     @Override
     public void registrarCallback(IntCallbackCliente cli) throws RemoteException {
-        synchronized (clientesRegistrados) {
-            this.clientesRegistrados.put(cli.getCodCli(), cli);
-        }
+        this.clientesRegistrados.put(cli.getCodCli(), cli);
     }
 
     @Override
     public void borrarCallback(IntCallbackCliente cli) throws RemoteException {
-        synchronized (clientesRegistrados) {
-            this.clientesRegistrados.remove(cli.getCodCli());
-        }
+        this.clientesRegistrados.remove(cli.getCodCli());
     }
 }
