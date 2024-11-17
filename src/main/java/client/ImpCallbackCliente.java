@@ -5,6 +5,7 @@ import common.IntCallbackCliente;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ImpCallbackCliente extends UnicastRemoteObject implements IntCallbackCliente {
@@ -14,13 +15,13 @@ public class ImpCallbackCliente extends UnicastRemoteObject implements IntCallba
 
     public ImpCallbackCliente(String codCli) throws RemoteException {
         super();
-        this.mensajes = new ArrayList<>();
+        this.mensajes = Collections.synchronizedList(new ArrayList<>());
         this.codCli = codCli;
         this.isSuscribed = false;
     }
 
     @Override
-    public synchronized void notifica(String mensaje)
+    public void notifica(String mensaje)
             throws RemoteException {
         this.mensajes.add(mensaje);
     }
@@ -31,7 +32,7 @@ public class ImpCallbackCliente extends UnicastRemoteObject implements IntCallba
         return this.codCli;
     }
 
-    public synchronized boolean hasPendingNotifications() {
+    public boolean hasPendingNotifications() {
         return !this.mensajes.isEmpty();
     }
 
