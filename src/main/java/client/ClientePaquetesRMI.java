@@ -226,10 +226,8 @@ public class ClientePaquetesRMI {
                         }
                     }
                 }
-                case 6 -> {
-                    // Ver notificaciones
-                    callback.seeNotifications();
-                }
+                case 6 -> // Ver notificaciones
+                        callback.seeNotifications();
 
             } // fin switch
 
