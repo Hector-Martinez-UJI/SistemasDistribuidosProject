@@ -66,8 +66,14 @@ public class MensajeroPaquetesRMI {
         do {
             opcion = menu(teclado);
             switch (opcion) {
-                case 0 -> // Cerrar sesion
+                case 0 -> { // Cerrar sesion
                     System.out.println("Cerrando sesión \n\n");
+                    try {
+                        gestor.guardaDatos();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 case 1 -> { // Listar los paquetes enviados a un CP
                     // Se pide CP
